@@ -13,12 +13,54 @@ import javax.swing.JOptionPane;
  */
 public class LoginForm extends javax.swing.JFrame {
 AdminMenuForm m ;
+Admin admin = Admin.getInstance();
+
+
+public boolean LoginShow()
+{ 
+    boolean flagA = false;
+    String username = textField1.getText();
+        int size = username.length();
+       if( !(username.charAt(size-1)=='k' && username.charAt(size-2)=='p' && username.charAt(size-3)=='.'&&
+          username.charAt(size-4)=='u'&&username.charAt(size-5)=='d'&&username.charAt(size-6)=='e'
+          && username.charAt(size-7) == '.' && username.charAt(size-8) == 't'&& username.charAt(size-9) == 'e'
+          && username.charAt(size-10) == 'u'&& username.charAt(size-11) == '.'&& username.charAt(size-12) == 'n'
+           && username.charAt(size-13) == 'i' && username.charAt(size-14) == 'm'&& username.charAt(size-15) == 'd' && username.charAt(size-16) == 'a' ))
+ 
+       {
+           return flagA;
+       }
+           for(int i=0;i<size-17;i++)
+       {
+           if(username.charAt(i)>='a'&& username.charAt(i)<='z' || username.charAt(i)>='A'&&username.charAt(i)<='Z'
+              || username.charAt(i)>='0'&&username.charAt(i)<='9')
+           {
+             flagA = true;  
+           }
+           
+       }
+          String pass =PasswordField.getText();
+          int length= pass.length();
+          for(int j=0;j<length;j++)
+          {
+              if( !(pass.charAt(j)>='A'&& pass.charAt(j)<='Z'||pass.charAt(j)>='a'&& pass.charAt(j)<='z' 
+                || pass.charAt(j)>='0'&& pass.charAt(j)<='9' || pass.charAt(j)=='"' || pass.charAt(j)=='@'
+                 || pass.charAt(j)=='#'|| pass.charAt(j)=='%' || pass.charAt(j)=='$' || pass.charAt(j)=='!') )
+              {
+                 flagA = false;
+                 return flagA;
+              }
+          }
+          
+    return flagA;
+}
     /**
      * Creates new form LoginForm
      */
     public LoginForm() {
         initComponents();
         this.setLocationRelativeTo(null);
+        PassHint.setVisible(false);
         
         
     }
@@ -44,6 +86,7 @@ AdminMenuForm m ;
         showPasCheck = new javax.swing.JCheckBox();
         button1 = new java.awt.Button();
         label3 = new java.awt.Label();
+        PassHint = new javax.swing.JLabel();
 
         LoginLabl.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 18)); // NOI18N
         LoginLabl.setText("Login");
@@ -116,6 +159,28 @@ AdminMenuForm m ;
 
         EmailLBL1.setText("Email");
 
+        PasswordField.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                PasswordFieldMouseDragged(evt);
+            }
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                PasswordFieldMouseMoved(evt);
+            }
+        });
+        PasswordField.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                PasswordFieldMouseEntered(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                PasswordFieldMousePressed(evt);
+            }
+        });
+        PasswordField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                PasswordFieldKeyPressed(evt);
+            }
+        });
+
         showPasCheck.setText("ShowPassword");
         showPasCheck.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -136,6 +201,10 @@ AdminMenuForm m ;
         label3.setFont(new java.awt.Font("Berlin Sans FB Demi", 0, 12)); // NOI18N
         label3.setText("Reset Password");
 
+        PassHint.setFont(new java.awt.Font("Tempus Sans ITC", 0, 11)); // NOI18N
+        PassHint.setForeground(new java.awt.Color(255, 51, 51));
+        PassHint.setText(" Must have 1 Digit & special char(@,!,*.. )");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -153,13 +222,13 @@ AdminMenuForm m ;
                                 .addContainerGap()
                                 .addComponent(EmailLBL, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(31, 31, 31)))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(showPasCheck)
-                                .addComponent(textField1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(PasswordField)
-                                .addComponent(button1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 338, Short.MAX_VALUE))
-                            .addComponent(label3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(label3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(textField1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(PasswordField)
+                            .addComponent(button1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 338, Short.MAX_VALUE)
+                            .addComponent(showPasCheck)
+                            .addComponent(PassHint, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(332, 332, 332)
                         .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -178,21 +247,19 @@ AdminMenuForm m ;
                     .addGroup(layout.createSequentialGroup()
                         .addGap(75, 75, 75)
                         .addComponent(EmailLBL1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(39, 39, 39)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(47, 47, 47)
-                        .addComponent(EmailLBL, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(23, 23, 23))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(PasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
+                    .addComponent(PasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(EmailLBL, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(PassHint, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(8, 8, 8)
                 .addComponent(showPasCheck)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(button1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(label3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(93, Short.MAX_VALUE))
+                .addContainerGap(64, Short.MAX_VALUE))
         );
 
         pack();
@@ -200,6 +267,9 @@ AdminMenuForm m ;
 
     private void textField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textField1ActionPerformed
         // TODO add your handling code here:
+        
+       
+       
     }//GEN-LAST:event_textField1ActionPerformed
 
     private void textField1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_textField1MouseEntered
@@ -237,10 +307,45 @@ AdminMenuForm m ;
 
     private void button1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button1ActionPerformed
         // TODO add your handling code here:
-        m= new AdminMenuForm();
-        m.setVisible(true);
-        this.setVisible(false);
+        boolean flag =LoginShow();
+        if(flag == true)
+        {
+            String us =textField1.getText();
+            String pas = PasswordField.getText();
+            admin.setUserName(us);
+            admin.setPassword(pas);
+            //JOptionPane.showMessageDialog(null,admin.getUserName()+"\n" + admin.getPassWord());
+            m= new AdminMenuForm();
+            m.setVisible(true);
+            this.setVisible(false);
+        }
+       
     }//GEN-LAST:event_button1ActionPerformed
+
+    private void PasswordFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_PasswordFieldKeyPressed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_PasswordFieldKeyPressed
+
+    private void PasswordFieldMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PasswordFieldMouseDragged
+        // TODO add your handling code here:
+      
+    }//GEN-LAST:event_PasswordFieldMouseDragged
+
+    private void PasswordFieldMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PasswordFieldMouseEntered
+        // TODO add your handling code here:
+       
+    }//GEN-LAST:event_PasswordFieldMouseEntered
+
+    private void PasswordFieldMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PasswordFieldMousePressed
+        // TODO add your handling code here:
+        PassHint.setVisible(true);
+    }//GEN-LAST:event_PasswordFieldMousePressed
+
+    private void PasswordFieldMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PasswordFieldMouseMoved
+        // TODO add your handling code here:
+        PassHint.setVisible(false);
+    }//GEN-LAST:event_PasswordFieldMouseMoved
 
     /**
      * @param args the command line arguments
@@ -283,6 +388,7 @@ AdminMenuForm m ;
     private java.awt.Label HelpBtn;
     private javax.swing.JLabel LoginLabl;
     private javax.swing.JPanel LoginPanel;
+    private javax.swing.JLabel PassHint;
     private javax.swing.JPasswordField PasswordField;
     private java.awt.Button button1;
     private java.awt.Label label1;
