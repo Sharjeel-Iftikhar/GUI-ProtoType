@@ -21,6 +21,7 @@ import java.io.BufferedReader;
 import javax.swing.table.DefaultTableModel;
 public class AdminMenuForm extends javax.swing.JFrame {
     Admin admin = Admin.getInstance();
+    TeacherData teacher = TeacherData.getTeachInstance();
     Student st;
     Courses course;
     DefaultTableModel model;
@@ -153,7 +154,7 @@ public class AdminMenuForm extends javax.swing.JFrame {
      
      public void AddCLOTable()
      {
-         String course = choice3.getSelectedItem();
+         String course = choice4.getSelectedItem();
          this.model = new DefaultTableModel();
                  model.addColumn("Course-ID");
                  model.addColumn("CLO-NO");
@@ -181,7 +182,7 @@ public class AdminMenuForm extends javax.swing.JFrame {
      
      public void SaveData()
      {
-         String SaveID=SaveDataChoice.getSelectedItem();
+         
          try
          {
              FileWriter obj = new FileWriter("course.txt");
@@ -193,44 +194,61 @@ public class AdminMenuForm extends javax.swing.JFrame {
              }
              else
              {
+                  
                  for(int i=0;i<admin.getCList().size();i++)
                  {
-                     if(SaveID.equals(admin.getCList().get(i).getID()))
-                     {
+                     
                          line = line + admin.getCList().get(i).getTitle()+"-";
                       line = line + admin.getCList().get(i).getDept()+"-";
                        line = line + admin.getCList().get(i).getCredHrs()+"-";
                      line = line + admin.getCList().get(i).getID()+"/";
                      //}
                      
-                     if(! (admin.getCList().get(i).getCloList().isEmpty()) )
-                     {
+                    
+                     
                          for(int j=0;j<admin.getCList().get(i).getCloList().size();j++)
                      {
+                         
                      
-                     line = line + admin.getCList().get(i).getCloList().get(j).getCLONO()+"+";
-                     line = line + admin.getCList().get(i).getCloList().get(j).getCloDetails()+"/";
-                     }
-                     }
-                     if(  !(admin.getCList().get(i).getStdList().isEmpty() ) )
+                     line = line + admin.getCList().get(i).getCloList().get(j).getCLONO()+"#";
+                     if(j==admin.getCList().get(i).getCloList().size()-1)
                      {
+                         line = line + admin.getCList().get(i).getCloList().get(j).getCloDetails()+"/";
+                     }
+                     else
+                     {
+                       line = line + admin.getCList().get(i).getCloList().get(j).getCloDetails()+"&";  
+                     }
+                     
+                     
+                     
+                     
+                     }
                         for(int k=0;k<admin.getCList().get(i).getStdList().size();k++)
                      {
                      line = line + admin.getCList().get(i).getStdList().get(k).getFirstName()+":";
                      line = line + admin.getCList().get(i).getStdList().get(k).getLasttName()+":";
                      line = line + admin.getCList().get(i).getStdList().get(k).getReg_No()+":";
-                     line = line + admin.getCList().get(i).getStdList().get(k).getGender()+":"+"\n";
-                     } 
+                     if(k==admin.getCList().get(i).getStdList().size()-1)
+                     {
+                         line = line + admin.getCList().get(i).getStdList().get(k).getGender()+"/"+"\n";
+                     }
+                     else
+                     {
+                         line = line + admin.getCList().get(i).getStdList().get(k).getGender()+">";
                      }
                      
+                     }
+                     
+                      
+                     
+                     
+                
                  }
-//                     obj.write(line);
-//                     obj.flush();
-//                     obj.close();
-                 }
-                 obj.write(line);
+                     obj.write(line);
                      obj.flush();
                      obj.close();
+                 
                  
                  
                JOptionPane.showMessageDialog(null,"File saved successfuly!!!");
@@ -255,64 +273,83 @@ public class AdminMenuForm extends javax.swing.JFrame {
         String uss = admin.getUserName();
         String []arr = uss.split(".uet");
         UserNameLBL.setText(arr[0]);
-        SaveDataChoice.setVisible(false);
+        choice4.setVisible(false);
         button1.setVisible(false);
        // list1.setVisible(false);
         
-//        try
-//        {
-//            FileReader obj = new FileReader("course.txt");
-//            BufferedReader bf = new BufferedReader(obj);
-//            String line = "0";
-//            while(line!=null)
-//            {
-//                line = bf.readLine();
-//                String[]arry = line.split("/");
-//                int size = arry.length;
-//                if(size==1)
-//                {
-//                    String []arr1 =arry[0].split("-");
-//                    String title = arr1[0];
-//                    String dep = arr1[1];
-//                    String cre = arr1[2];
-//                    int credH = Integer.parseInt(cre);
-//                    String ID = arr1[3];
-//                    course = new Courses(title,ID,credH,dep);
-//                    admin.getCList().add(course);
-//                    
-//                }
-//               else if(size==2)
-//                {
-//                    String []arr1 =arry[0].split("-");
-//                    String []arr2 = arry[1].split("+");
-//                    String title = arr1[0];
-//                    String dep = arr1[1];
-//                    String cre = arr1[2];
-//                    int credH = Integer.parseInt(cre);
-//                    String ID = arr1[3];
-//                    course = new Courses(title,ID,credH,dep);
-//                    admin.getCList().add(course);
-////                    String fname = arr2[0];
-////                    String lname = arr2[1];
-////                    String regno = arr2[2];
-////                    String gender = arr2[3];
-////                    st = new Student(fname,lname,regno,gender);
-////                    for(int i=0;i<admin.getCList().size();i++)
-////                    {
-////                        if(ID.equals(admin.getCList().get(i).getID()))
-////                        {
-////                            admin.getCList().get(i).getStdList().add(st);
-////                        }
-////                    }
-//                }
-//                bf.close();
-//                obj.close();
-//            }
-//        }
-//        catch(Exception ex)
-//        {
-//            
-//        }
+        try
+        {
+            FileReader obj = new FileReader("course.txt");
+            BufferedReader bf = new BufferedReader(obj);
+            String line = "0";
+            while(line!=null)
+            {
+                line = bf.readLine();
+                String[]arry = line.split("/");
+               // JOptionPane.showMessageDialog(null,"Size of Splitting :" + arry.length);
+                    String []arr1 =arry[0].split("-");
+                    String title = arr1[0];
+                    String dep = arr1[1];
+                    String cre = arr1[2];
+                    int credH = Integer.parseInt(cre);
+                    String ID = arr1[3];
+                    course = new Courses(title,ID,credH,dep);
+                    admin.getCList().add(course);   
+                String[] CloArray = arry[1].split("&");
+                int CloSize = CloArray.length;
+               // JOptionPane.showMessageDialog(null,"CLO Part Size (&)" + CloSize);
+                for(int i=0;i<=CloSize-1;i++)
+                {
+                   
+                    String []Clo = CloArray[i].split("#");
+                    int s = Clo.length;
+                    String clo = Clo[0];
+                    String detail = Clo[1];
+                   // JOptionPane.showMessageDialog(null,clo+detail);
+                    CLO cl = new CLO(clo,detail);
+                    for(int j=0;j<admin.getCList().size();j++)
+                    {
+                        if(ID.equals(admin.getCList().get(j).getID()))
+                        {
+                            admin.getCList().get(j).getCloList().add(cl);
+                          
+                        }
+                    }
+                }
+                String[] STD = arry[2].split(">");
+                int stdSize = STD.length;
+                for(int i=0;i<=stdSize-1;i++)
+                {
+                    String[] SList = STD[i].split(":");
+                    String Fname = SList[0];
+                    String Lname = SList[1];
+                    String regNo = SList[2];
+                    String gender = SList[3];
+                    Student std = new Student(Fname,Lname,regNo,gender);
+                    for(int j=0;j<admin.getCList().size();j++)
+                    {
+                        if(ID.equals(admin.getCList().get(j).getID()))
+                        {
+                            admin.getCList().get(j).getStdList().add(std);
+                           // JOptionPane.showMessageDialog(null,"Std Added");
+                          
+                        }
+                    }
+                    
+                }
+            
+                
+               
+                
+                
+            }
+                bf.close();
+                obj.close();
+        }
+        catch(Exception ex)
+        {
+            
+       }
         
         
     }
@@ -334,8 +371,6 @@ public class AdminMenuForm extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        SaveDataChoice = new java.awt.Choice();
-        button1 = new java.awt.Button();
         MenuPanel = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -396,6 +431,8 @@ public class AdminMenuForm extends javax.swing.JFrame {
         textField2 = new java.awt.TextField();
         choice3 = new java.awt.Choice();
         courseIDLbL = new java.awt.Label();
+        choice4 = new java.awt.Choice();
+        button1 = new java.awt.Button();
         ManageTeacherPanel = new javax.swing.JPanel();
         jTabbedPane3 = new javax.swing.JTabbedPane();
         jPanel11 = new javax.swing.JPanel();
@@ -482,6 +519,11 @@ public class AdminMenuForm extends javax.swing.JFrame {
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/icons8-sign-out-50.png"))); // NOI18N
         jLabel6.setText("Log Out");
+        jLabel6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jLabel6MousePressed(evt);
+            }
+        });
 
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/icons8-cross-mark-48.png"))); // NOI18N
         jLabel8.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -500,23 +542,6 @@ public class AdminMenuForm extends javax.swing.JFrame {
             }
         });
 
-        SaveDataChoice.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                SaveDataChoiceMouseExited(evt);
-            }
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                SaveDataChoiceMousePressed(evt);
-            }
-        });
-
-        button1.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 12)); // NOI18N
-        button1.setLabel("SAVE");
-        button1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                button1ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -528,9 +553,7 @@ public class AdminMenuForm extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(243, 243, 243)
                         .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 233, Short.MAX_VALUE)
-                        .addComponent(SaveDataChoice, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel9)
                         .addGap(45, 45, 45)
                         .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -538,9 +561,7 @@ public class AdminMenuForm extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(UserNameLBL, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(button1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(236, 236, 236))))
+                        .addGap(236, 819, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -549,13 +570,11 @@ public class AdminMenuForm extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(SaveDataChoice, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(button1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGap(0, 14, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel6)
                             .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1052,7 +1071,7 @@ public class AdminMenuForm extends javax.swing.JFrame {
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addGap(26, 26, 26)
                 .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 66, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(EDITBTN, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE)
                     .addComponent(DELETEBTN, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -1072,6 +1091,11 @@ public class AdminMenuForm extends javax.swing.JFrame {
         });
 
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/icons8-search-50.png"))); // NOI18N
+        jLabel7.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jLabel7MousePressed(evt);
+            }
+        });
 
         ADDPANEL.setBackground(new java.awt.Color(30, 83, 83));
 
@@ -1140,47 +1164,69 @@ public class AdminMenuForm extends javax.swing.JFrame {
                 .addGap(25, 25, 25))
         );
 
+        button1.setBackground(new java.awt.Color(30, 83, 83));
+        button1.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 12)); // NOI18N
+        button1.setForeground(new java.awt.Color(255, 255, 255));
+        button1.setLabel("OK");
+        button1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                button1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel16Layout = new javax.swing.GroupLayout(jPanel16);
         jPanel16.setLayout(jPanel16Layout);
         jPanel16Layout.setHorizontalGroup(
             jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel16Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(ADDPANEL, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel16Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(ADDPANEL, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel16Layout.createSequentialGroup()
+                        .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel16Layout.createSequentialGroup()
+                                .addGap(52, 52, 52)
+                                .addComponent(AddCloLBL)
+                                .addGap(112, 112, 112)
+                                .addComponent(EDitCLOLBL))
+                            .addGroup(jPanel16Layout.createSequentialGroup()
+                                .addGap(33, 33, 33)
+                                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(75, 75, 75)
+                        .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(textField3, javax.swing.GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE)
+                            .addComponent(choice4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(button1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
-            .addGroup(jPanel16Layout.createSequentialGroup()
-                .addGap(52, 52, 52)
-                .addComponent(AddCloLBL)
-                .addGap(112, 112, 112)
-                .addComponent(EDitCLOLBL)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(46, 46, 46)
-                .addComponent(textField3, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18))
-            .addGroup(jPanel16Layout.createSequentialGroup()
-                .addGap(33, 33, 33)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel16Layout.setVerticalGroup(
             jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel16Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(textField3, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(AddCloLBL)
-                        .addComponent(EDitCLOLBL))
-                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel16Layout.createSequentialGroup()
+                        .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(AddCloLBL)
+                                .addComponent(EDitCLOLBL)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel16Layout.createSequentialGroup()
+                        .addComponent(textField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(choice4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(button1, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(ADDPANEL, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ADDPANEL, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -1304,10 +1350,9 @@ public class AdminMenuForm extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(button4, javax.swing.GroupLayout.DEFAULT_SIZE, 215, Short.MAX_VALUE)
-                    .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(CourseChoice, javax.swing.GroupLayout.DEFAULT_SIZE, 215, Short.MAX_VALUE)
-                        .addComponent(TeacherNAmeChoice, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(TECNIC, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(CourseChoice, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 215, Short.MAX_VALUE)
+                    .addComponent(TeacherNAmeChoice, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(TECNIC, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(35, 35, 35)
                 .addComponent(jPanel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
@@ -1932,7 +1977,7 @@ public class AdminMenuForm extends javax.swing.JFrame {
         choice1.removeAll();
         choice2.removeAll();
         CourseChoice.removeAll();
-        SaveDataChoice.setVisible(false);
+        
 
     }//GEN-LAST:event_ManageCourseBTNActionPerformed
 
@@ -2261,8 +2306,8 @@ public class AdminMenuForm extends javax.swing.JFrame {
             int size = admin.getCList().size();
             for(int i=0;i<size;i++)
             {
-                int leh = admin.getTeachList().get(i).getCList().get(i).getStdList().size();
-                 JOptionPane.showMessageDialog(null,+size+ "size of Std in curse");
+//                int leh = admin.getTeachList().get(i).getCList().get(i).getStdList().size();
+//                 JOptionPane.showMessageDialog(null,+size+ "size of Std in curse");
             }
         }
 
@@ -2281,6 +2326,7 @@ public class AdminMenuForm extends javax.swing.JFrame {
 
     private void AddCloLBLMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AddCloLBLMousePressed
         // TODO add your handling code here:
+        textField3.setVisible(false);
         AddAppear();
         int size = admin.getCList().size();
         for(int i=0;i<size;i++)
@@ -2327,6 +2373,7 @@ public class AdminMenuForm extends javax.swing.JFrame {
 
     private void EDitCLOLBLMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EDitCLOLBLMousePressed
         // TODO add your handling code here:
+        
          jPanel7.setVisible(true);
          textField3.setVisible(true);
         CLOTABLE.setVisible(true);
@@ -2334,9 +2381,10 @@ public class AdminMenuForm extends javax.swing.JFrame {
         DELETEBTN.setVisible(true);
         ADDPANEL.setVisible(false);
         button13.setLabel("Update");
-        AddCLOTable();
         textField2.setText("");
         textArea1.setText("");
+        DefaultTableModel model = (DefaultTableModel) CLOTABLE.getModel();
+        model.setRowCount(0);
         
     }//GEN-LAST:event_EDitCLOLBLMousePressed
 
@@ -2639,9 +2687,23 @@ public class AdminMenuForm extends javax.swing.JFrame {
 
     private void jLabel9MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel9MousePressed
         // TODO add your handling code here:
-       SaveDataChoice.setVisible(true);
+       int size = admin.getCList().size();
+       for(int i=0;i<size;i++)
+       {
+           String id = admin.getCList().get(i).getID();
+           if(id.equals(admin.getCList().get(i).getID()))
+           {
+               if( !(admin.getCList().get(i).getCloList().isEmpty()) )
+               {
+                   if( !(admin.getCList().get(i).getStdList().isEmpty()) )
+                   {
+                       SaveData();
+                   }
+               }
+           }
+       }
        ViewAll.setVisible(true);
-       button1.setVisible(true);
+       
       // list1.setVisible(true);
        
       
@@ -2649,35 +2711,45 @@ public class AdminMenuForm extends javax.swing.JFrame {
 
     private void jLabel9MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel9MouseEntered
         // TODO add your handling code here:
-         SaveDataChoice.setVisible(true);
+         
     }//GEN-LAST:event_jLabel9MouseEntered
 
-    private void SaveDataChoiceMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SaveDataChoiceMousePressed
+    private void jLabel7MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MousePressed
         // TODO add your handling code here:
-        if( !(admin.getCList().isEmpty()) )
+        jPanel7.setVisible(true);
+        // textField3.setVisible(true);
+        CLOTABLE.setVisible(true);
+        EDITBTN.setVisible(false);
+        DELETEBTN.setVisible(false);
+        ADDPANEL.setVisible(false);
+        choice4.setVisible(true);
+        button1.setVisible(true);
+        for(int i=0;i<admin.getCList().size();i++)
         {
-            for(int i=0;i<admin.getCList().size();i++)
+            if( !(admin.getCList().get(i).getCloList().isEmpty()) )
             {
-                if( !((admin.getCList().get(i).getCloList().isEmpty())&& (admin.getCList().get(i).getStdList().isEmpty()) ))
+                if(choice4.getItemCount()<admin.getCList().size())
                 {
-                    if(SaveDataChoice.getItemCount() < admin.getCList().size())
-                    {
-                        SaveDataChoice.add(admin.getCList().get(i).getID());
-                    }
+                    choice4.add(admin.getCList().get(i).getID());
                 }
             }
         }
-    }//GEN-LAST:event_SaveDataChoiceMousePressed
-
-    private void SaveDataChoiceMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SaveDataChoiceMouseExited
-        // TODO add your handling code here:
-        
-    }//GEN-LAST:event_SaveDataChoiceMouseExited
+         
+    }//GEN-LAST:event_jLabel7MousePressed
 
     private void button1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button1ActionPerformed
         // TODO add your handling code here:
-        SaveData();
+        
+        AddCLOTable();
     }//GEN-LAST:event_button1ActionPerformed
+
+    private void jLabel6MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MousePressed
+        // TODO add your handling code here:
+        teacher.Teacherlist.addAll(admin.getTeachList());
+        this.setVisible(false);
+        LoginForm f = new LoginForm();
+        f.setVisible(true);
+    }//GEN-LAST:event_jLabel6MousePressed
 
     /**
      * @param args the command line arguments
@@ -2744,7 +2816,6 @@ public class AdminMenuForm extends javax.swing.JFrame {
     private javax.swing.JPanel MenuPanel;
     private java.awt.TextField PassField1;
     private java.awt.TextField RegNoField;
-    private java.awt.Choice SaveDataChoice;
     private java.awt.TextField SearchREGField;
     private java.awt.Choice TECNIC;
     private java.awt.TextField TNameField1;
@@ -2774,6 +2845,7 @@ public class AdminMenuForm extends javax.swing.JFrame {
     private java.awt.Choice choice1;
     private java.awt.Choice choice2;
     private java.awt.Choice choice3;
+    private java.awt.Choice choice4;
     private java.awt.Label courseIDLbL;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

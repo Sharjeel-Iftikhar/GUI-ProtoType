@@ -54,6 +54,32 @@ public boolean LoginShow()
           
     return flagA;
 }
+/**
+ * Method to Teacher admin
+ */
+    public boolean Addteacher(String user,String Pass)
+       {
+           boolean  flag = false;
+           if( !(admin.getTeachList().isEmpty()) )
+           {
+              for(int i=0;i<admin.getTeachList().size();i++)
+           {
+               if( (user.equals(admin.getTeachList().get(i).getEmail())) && Pass.equals(admin.getTeachList().get(i).getPassword()) )
+               {
+                   flag = true;
+               }
+           } 
+           }
+           else
+           {
+               
+           }
+           
+           
+           return flag;
+       }
+
+
     /**
      * Creates new form LoginForm
      */
@@ -307,17 +333,29 @@ public boolean LoginShow()
 
     private void button1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button1ActionPerformed
         // TODO add your handling code here:
-        boolean flag =LoginShow();
-        if(flag == true)
-        {
             String us =textField1.getText();
             String pas = PasswordField.getText();
+        boolean flag =LoginShow();
+        boolean flag1 = Addteacher(us,pas);
+        if(flag == true)
+        {
+            
             admin.setUserName(us);
             admin.setPassword(pas);
             //JOptionPane.showMessageDialog(null,admin.getUserName()+"\n" + admin.getPassWord());
             m= new AdminMenuForm();
             m.setVisible(true);
             this.setVisible(false);
+        }
+        else if(flag1==true)
+        {
+            TeacherForm tform = new TeacherForm(us,pas);
+            tform.setVisible(true);
+            this.setVisible(false);
+        }
+        else if(flag1==false)
+        {
+            JOptionPane.showMessageDialog(null,"Teacher's List is Empty ....");
         }
        
     }//GEN-LAST:event_button1ActionPerformed

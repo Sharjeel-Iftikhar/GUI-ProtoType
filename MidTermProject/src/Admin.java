@@ -190,13 +190,15 @@ public class Admin {
         {
             if(cour.equals(CourseList.get(j).getID()))
             {
-            
+                 
                 course.setID(CourseList.get(j).getID());
                 course.setCrdHrs(CourseList.get(j).getCredHrs());
                 course.setDept(CourseList.get(j).getDept());
                 course.setTitle(CourseList.get(j).getTitle());
+                course.setStdList(CourseList.get(j).getStdList());
                 
             }
+            
         }
         int s = admin.getTeachList().size();
         for(int i=0;i<admin.getTeachList().size();i++)

@@ -138,8 +138,8 @@ public class Courses {
      * Setter for the StdList
      * @param Student std
      */
-    public void setStdList(Student std)
+    public void setStdList(List<Student>list )
     {
-        StdList.add(std);
+        StdList.addAll(list);
     }
 }
