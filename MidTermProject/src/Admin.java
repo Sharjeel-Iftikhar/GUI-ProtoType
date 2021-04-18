@@ -196,7 +196,7 @@ public class Admin {
                 course.setDept(CourseList.get(j).getDept());
                 course.setTitle(CourseList.get(j).getTitle());
                 course.setStdList(CourseList.get(j).getStdList());
-                
+                course.SetCLOList(CourseList.get(j).getCloList());
             }
             
         }

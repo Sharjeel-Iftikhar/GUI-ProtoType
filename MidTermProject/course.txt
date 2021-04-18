@@ -1,2 +1,1 @@
-PHYSICS-CS-3-PH102/CLO-01#Arrays,Functions&CLO-02#Structs/Sharjel:Ahmad:139:MALE>Zain:Hasn:134:MALE/
-MATHEMATICS-EE-5-MT563/CLO-01#Doucment/Khadija:Saif:243:FEMALE/
+PHYSICS-CS-3-PH102/CLO-01#Arrays,Functions&CLO-02#Structs/Sharjel:Ahmad:139:MALE>Zain:Hasn:134:MALE/Samyan-124-Sam-0000/

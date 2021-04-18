@@ -231,7 +231,7 @@ public class AdminMenuForm extends javax.swing.JFrame {
                      line = line + admin.getCList().get(i).getStdList().get(k).getReg_No()+":";
                      if(k==admin.getCList().get(i).getStdList().size()-1)
                      {
-                         line = line + admin.getCList().get(i).getStdList().get(k).getGender()+"/"+"\n";
+                         line = line + admin.getCList().get(i).getStdList().get(k).getGender()+"/";
                      }
                      else
                      {
@@ -239,6 +239,21 @@ public class AdminMenuForm extends javax.swing.JFrame {
                      }
                      
                      }
+                        for(int z = 0;z<admin.getTeachList().size();z++)
+                        {
+                            for(int a=0;a<admin.getTeachList().get(z).getCList().size();a++)
+                            {
+                                if(admin.getCList().get(i).getID().equals(admin.getTeachList().get(z).getCList().get(a).getID()))
+                                {
+                                    line = line + admin.getTeachList().get(z).getTName()+"-";
+                                    line = line + admin.getTeachList().get(z).getCNIC()+"-";
+                                    line = line + admin.getTeachList().get(z).getEmail()+"-";
+                                    line = line + admin.getTeachList().get(z).getPassword()+"/";
+                                }
+                            }
+                            
+                           
+                        }
                      
                       
                      
@@ -337,6 +352,42 @@ public class AdminMenuForm extends javax.swing.JFrame {
                     }
                     
                 }
+                String [] teach = arry[3].split("-");
+                
+                String tname = teach[0];
+                String cnic = teach[1];
+                String email = teach[2];
+                String pas = teach[3];
+                Teacher te = new Teacher(tname,email,pas,cnic);
+                admin.getTeachList().add(te);
+                JOptionPane.showMessageDialog(null,"Teacher added");
+                JOptionPane.showMessageDialog(null,tname+cnic+email+pas);
+                Courses  cou = new Courses();
+        
+        for(int j=0;j<admin.getCList().size();j++)
+        {
+            if(ID.equals(admin.getCList().get(j).getID()))
+            {
+                  JOptionPane.showMessageDialog(null,"ID matched");
+                cou.setID(admin.getCList().get(j).getID());
+                cou.setCrdHrs(admin.getCList().get(j).getCredHrs());
+                cou.setDept(admin.getCList().get(j).getDept());
+                cou.setTitle(admin.getCList().get(j).getTitle());
+                cou.setStdList(admin.getCList().get(j).getStdList());
+                cou.SetCLOList(admin.getCList().get(j).getCloList());
+            }
+            
+        }
+        for(int i=0;i<admin.getTeachList().size();i++)
+        {
+            if(tname.equals(admin.getTeachList().get(i).getTName()))
+            {
+                 JOptionPane.showMessageDialog(null,"Teacher Name matched ");
+                admin.getTeachList().get(i).getCList().add(cou);
+                JOptionPane.showMessageDialog(null,"Assigned");
+            }
+        }
+                
             
                 
                
@@ -2697,7 +2748,14 @@ public class AdminMenuForm extends javax.swing.JFrame {
                {
                    if( !(admin.getCList().get(i).getStdList().isEmpty()) )
                    {
-                       SaveData();
+                       for(int j=0;j<admin.getTeachList().size();j++)
+                       {
+                           if( !(admin.getTeachList().get(j).getCList().isEmpty()) )
+                           {
+                               SaveData();
+                           }
+                       }
+                       
                    }
                }
            }

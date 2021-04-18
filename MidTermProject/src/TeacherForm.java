@@ -1,4 +1,5 @@
 
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -20,14 +21,39 @@ public class TeacherForm extends javax.swing.JFrame {
     /**
      * Creates new form TeacherForm
      */
+     public void disappearAdd()
+     {
+          AddRubricsName.setVisible(false);
+         RubricsNameField.setVisible(false);
+         jLabel14.setVisible(false);
+         choice2.setVisible(false);
+         jLabel15.setVisible(false);
+     }
+     
+     public void AppearAdd()
+     {
+          RubricsNameField.setVisible(true);
+         jLabel14.setVisible(true);
+         choice2.setVisible(true);
+         jLabel15.setVisible(true);
+         AddRubricsName.setVisible(true);
+     }
     
     public TeacherForm(String user,String Pass) {
         initComponents();
          MainPanel.setSelectedIndex(-1);
          this.setLocationRelativeTo(null);
          StudentAddTable.setVisible(false);
-         
-       TeachNameLBL.setText(user);
+         RubricsNameField.setVisible(false);
+         jLabel14.setVisible(false);
+         choice2.setVisible(false);
+         jLabel15.setVisible(false);
+         TeachNameLBL.setText(user);
+         TableAndEDitBTNPanel.setVisible(false);
+         button10.setVisible(false);
+         AddRubricsName.setVisible(false);
+         choice3.setVisible(false);
+         jPanel4.setVisible(false);
         
     }
 
@@ -86,8 +112,28 @@ public class TeacherForm extends javax.swing.JFrame {
         label2 = new java.awt.Label();
         button6 = new java.awt.Button();
         ManageRubrics = new javax.swing.JPanel();
+        jTabbedPane2 = new javax.swing.JTabbedPane();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel14 = new javax.swing.JLabel();
+        RubricsNameField = new java.awt.TextField();
+        jLabel15 = new javax.swing.JLabel();
+        choice2 = new java.awt.Choice();
+        AddRubricsName = new java.awt.Button();
+        jLabel16 = new javax.swing.JLabel();
+        EDITBTN = new javax.swing.JLabel();
+        TableAndEDitBTNPanel = new javax.swing.JPanel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        button8 = new java.awt.Button();
+        button9 = new java.awt.Button();
+        jPanel4 = new javax.swing.JPanel();
+        choice3 = new java.awt.Choice();
+        button10 = new java.awt.Button();
+        SearchLBL = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
         ManageAssesment = new javax.swing.JPanel();
         EvaluatePanel = new javax.swing.JPanel();
+        button7 = new java.awt.Button();
         ResultPanel = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -584,15 +630,232 @@ public class TeacherForm extends javax.swing.JFrame {
 
         MainPanel.addTab("tab1", CourseDetailsPanel);
 
+        jTabbedPane2.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 12)); // NOI18N
+
+        jLabel14.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 12)); // NOI18N
+        jLabel14.setText("Rubrics Name");
+
+        jLabel15.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 12)); // NOI18N
+        jLabel15.setText("CLO Name");
+
+        AddRubricsName.setBackground(new java.awt.Color(202, 185, 72));
+        AddRubricsName.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 12)); // NOI18N
+        AddRubricsName.setForeground(new java.awt.Color(255, 255, 255));
+        AddRubricsName.setLabel("ADD");
+        AddRubricsName.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                AddRubricsNameMousePressed(evt);
+            }
+        });
+
+        jLabel16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/icons8-plus-48.png"))); // NOI18N
+        jLabel16.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jLabel16MousePressed(evt);
+            }
+        });
+
+        EDITBTN.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/icons8-edit-64 (1).png"))); // NOI18N
+        EDITBTN.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                EDITBTNMouseEntered(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                EDITBTNMousePressed(evt);
+            }
+        });
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane3.setViewportView(jTable1);
+
+        button8.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 12)); // NOI18N
+        button8.setLabel("EDIT");
+        button8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                button8ActionPerformed(evt);
+            }
+        });
+
+        button9.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 12)); // NOI18N
+        button9.setLabel("DELETE");
+
+        javax.swing.GroupLayout TableAndEDitBTNPanelLayout = new javax.swing.GroupLayout(TableAndEDitBTNPanel);
+        TableAndEDitBTNPanel.setLayout(TableAndEDitBTNPanelLayout);
+        TableAndEDitBTNPanelLayout.setHorizontalGroup(
+            TableAndEDitBTNPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(TableAndEDitBTNPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 469, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(TableAndEDitBTNPanelLayout.createSequentialGroup()
+                .addGap(76, 76, 76)
+                .addComponent(button8, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(button9, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(70, 70, 70))
+        );
+        TableAndEDitBTNPanelLayout.setVerticalGroup(
+            TableAndEDitBTNPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(TableAndEDitBTNPanelLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(TableAndEDitBTNPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(button8, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(button9, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(20, 20, 20))
+        );
+
+        choice3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                choice3MousePressed(evt);
+            }
+        });
+
+        button10.setBackground(new java.awt.Color(202, 185, 72));
+        button10.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 12)); // NOI18N
+        button10.setForeground(new java.awt.Color(255, 255, 255));
+        button10.setLabel("OK");
+        button10.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                button10MousePressed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap(20, Short.MAX_VALUE)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(choice3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(button10, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(choice3, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(button10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        SearchLBL.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/icons8-search-50.png"))); // NOI18N
+        SearchLBL.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                SearchLBLMousePressed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(42, 42, 42)
+                        .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(134, 134, 134)
+                        .addComponent(EDITBTN, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(AddRubricsName, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(choice2, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(RubricsNameField, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(13, 21, Short.MAX_VALUE)
+                        .addComponent(TableAndEDitBTNPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(SearchLBL, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(28, 28, 28)
+                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(42, 42, 42)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel16, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
+                    .addComponent(EDITBTN, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(RubricsNameField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel14, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(54, 54, 54)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel15, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(choice2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(77, 77, 77)
+                .addComponent(AddRubricsName, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(75, 75, 75))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
+                        .addComponent(TableAndEDitBTNPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(SearchLBL)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+
+        jTabbedPane2.addTab("        Rubrics         ", jPanel1);
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        jTabbedPane2.addTab("    View ALL   ", jPanel2);
+
         javax.swing.GroupLayout ManageRubricsLayout = new javax.swing.GroupLayout(ManageRubrics);
         ManageRubrics.setLayout(ManageRubricsLayout);
         ManageRubricsLayout.setHorizontalGroup(
             ManageRubricsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 915, Short.MAX_VALUE)
+            .addGroup(ManageRubricsLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jTabbedPane2)
+                .addContainerGap())
         );
         ManageRubricsLayout.setVerticalGroup(
             ManageRubricsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 612, Short.MAX_VALUE)
+            .addGroup(ManageRubricsLayout.createSequentialGroup()
+                .addGap(140, 140, 140)
+                .addComponent(jTabbedPane2)
+                .addContainerGap())
         );
 
         MainPanel.addTab("tab2", ManageRubrics);
@@ -610,15 +873,29 @@ public class TeacherForm extends javax.swing.JFrame {
 
         MainPanel.addTab("tab3", ManageAssesment);
 
+        button7.setFont(new java.awt.Font("Tempus Sans ITC", 1, 14)); // NOI18N
+        button7.setLabel("DownLoad");
+        button7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                button7ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout EvaluatePanelLayout = new javax.swing.GroupLayout(EvaluatePanel);
         EvaluatePanel.setLayout(EvaluatePanelLayout);
         EvaluatePanelLayout.setHorizontalGroup(
             EvaluatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 915, Short.MAX_VALUE)
+            .addGroup(EvaluatePanelLayout.createSequentialGroup()
+                .addGap(220, 220, 220)
+                .addComponent(button7, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(425, Short.MAX_VALUE))
         );
         EvaluatePanelLayout.setVerticalGroup(
             EvaluatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 612, Short.MAX_VALUE)
+            .addGroup(EvaluatePanelLayout.createSequentialGroup()
+                .addGap(204, 204, 204)
+                .addComponent(button7, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(369, Short.MAX_VALUE))
         );
 
         MainPanel.addTab("tab4", EvaluatePanel);
@@ -783,6 +1060,79 @@ public class TeacherForm extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_button6ActionPerformed
 
+    private void button7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button7ActionPerformed
+        // TODO add your handling code here:
+               JFileChooser  chooser = new JFileChooser(); 
+   
+    chooser.setDialogTitle("Choose a destination to save exported file");
+    chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+    //
+    // disable the "All files" option.
+    //
+    //chooser.setAcceptAllFileFilterUsed(false);
+    
+    if(chooser.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) { 
+    // PhoneBook.getIsntance().saveData(chooser.getSelectedFile()+".csv");
+      
+      }
+    else {
+      System.out.println("No Selection ");
+      }
+    }//GEN-LAST:event_button7ActionPerformed
+
+    private void jLabel16MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel16MousePressed
+        // TODO add your handling code here:
+         AppearAdd();
+         jPanel4.setVisible(false);
+        button10.setVisible(false);
+        choice3.setVisible(false);
+         AddRubricsName.setLabel("ADD");
+    }//GEN-LAST:event_jLabel16MousePressed
+
+    private void EDITBTNMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EDITBTNMouseEntered
+        // TODO add your handling code here:
+        
+        
+    }//GEN-LAST:event_EDITBTNMouseEntered
+
+    private void choice3MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_choice3MousePressed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_choice3MousePressed
+
+    private void SearchLBLMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SearchLBLMousePressed
+        // TODO add your handling code here:
+        jPanel4.setVisible(true);
+        button10.setVisible(true);
+        choice3.setVisible(true);
+    }//GEN-LAST:event_SearchLBLMousePressed
+
+    private void button10MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_button10MousePressed
+        // TODO add your handling code here:
+        TableAndEDitBTNPanel.setVisible(true);
+    }//GEN-LAST:event_button10MousePressed
+
+    private void AddRubricsNameMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AddRubricsNameMousePressed
+        // TODO add your handling code here:
+        AddRubricsName.setLabel("ADD");
+    }//GEN-LAST:event_AddRubricsNameMousePressed
+
+    private void EDITBTNMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EDITBTNMousePressed
+        // TODO add your handling code here:
+        TableAndEDitBTNPanel.setVisible(true);
+        jPanel4.setVisible(true);
+        button10.setVisible(true);
+        choice3.setVisible(true);
+        disappearAdd();
+        
+    }//GEN-LAST:event_EDITBTNMousePressed
+
+    private void button8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button8ActionPerformed
+        // TODO add your handling code here:
+        AppearAdd();
+         AddRubricsName.setLabel("Update");
+    }//GEN-LAST:event_button8ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -819,12 +1169,14 @@ public class TeacherForm extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private java.awt.Button AddRubricsName;
     private javax.swing.JPanel AssesmentBTN;
     private java.awt.TextField CNICField;
     private javax.swing.JPanel CourPanel;
     private javax.swing.JPanel CourseBTN;
     private javax.swing.JPanel CourseDetailsPanel;
     private javax.swing.JTable CourseInfoTable;
+    private javax.swing.JLabel EDITBTN;
     private java.awt.TextField Email;
     private javax.swing.JPanel EvaluateBTN;
     private javax.swing.JPanel EvaluatePanel;
@@ -839,22 +1191,34 @@ public class TeacherForm extends javax.swing.JFrame {
     private javax.swing.JPanel ResultBTN;
     private javax.swing.JPanel ResultPanel;
     private javax.swing.JPanel RubricsBTN;
+    private java.awt.TextField RubricsNameField;
+    private javax.swing.JLabel SearchLBL;
     private javax.swing.JPanel StdPanel;
     private javax.swing.JTable StudentAddTable;
+    private javax.swing.JPanel TableAndEDitBTNPanel;
     private java.awt.Label TeachNameLBL;
     private java.awt.TextField Tname;
     private java.awt.Button button1;
+    private java.awt.Button button10;
     private java.awt.Button button2;
     private java.awt.Button button3;
     private java.awt.Button button4;
     private java.awt.Button button5;
     private java.awt.Button button6;
+    private java.awt.Button button7;
+    private java.awt.Button button8;
+    private java.awt.Button button9;
     private java.awt.Choice choice1;
+    private java.awt.Choice choice2;
+    private java.awt.Choice choice3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -863,9 +1227,15 @@ public class TeacherForm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JTabbedPane jTabbedPane2;
+    private javax.swing.JTable jTable1;
     private java.awt.Label label1;
     private java.awt.Label label2;
     // End of variables declaration//GEN-END:variables

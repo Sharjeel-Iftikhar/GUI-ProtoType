@@ -1,3 +1,6 @@
+
+import java.util.*;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -11,6 +14,7 @@
 public class CLO {
     private String CloNO;
     private String CloDetails;
+    private List<Rubrics>RubList = new ArrayList<>();
     
     /**
      * Constructor to save the value
@@ -36,5 +40,13 @@ public class CLO {
     {
         return CloDetails;
     }
-    
+    /**
+     * Getter for RubList
+     * @return method return RubList
+     */
+    public List<Rubrics>getRubList()
+    {
+      return RubList;      
+    }
 }
+    

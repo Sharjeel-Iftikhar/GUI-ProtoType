@@ -14,6 +14,7 @@ import javax.swing.JOptionPane;
 public class LoginForm extends javax.swing.JFrame {
 AdminMenuForm m ;
 Admin admin = Admin.getInstance();
+TeacherData teacher = TeacherData.getTeachInstance();
 
 
 public boolean LoginShow()
@@ -60,11 +61,11 @@ public boolean LoginShow()
     public boolean Addteacher(String user,String Pass)
        {
            boolean  flag = false;
-           if( !(admin.getTeachList().isEmpty()) )
+           if( !(teacher.Teacherlist.isEmpty()) )
            {
-              for(int i=0;i<admin.getTeachList().size();i++)
+              for(int i=0;i<teacher.Teacherlist.size();i++)
            {
-               if( (user.equals(admin.getTeachList().get(i).getEmail())) && Pass.equals(admin.getTeachList().get(i).getPassword()) )
+               if( (user.equals(teacher.Teacherlist.get(i).getEmail())) && Pass.equals(teacher.Teacherlist.get(i).getPassword()) )
                {
                    flag = true;
                }

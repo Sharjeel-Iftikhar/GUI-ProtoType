@@ -26,26 +26,7 @@ public class Courses {
         this.Cred_Hrs = CredHrs;
         this.Dept = Dept;
     }
- //   private static Courses course;
-//    /**
-//     * Singleton Constructor
-//     */
-//    private Courses()
-//    {
-//        
-//    }
-//    /**
-//     * Method to form the new object
-//     */
-//    public static Courses getCourse()
-//    {
-//        if(course == null)
-//        {
-//            course = new Courses();
-//            return course;
-//        }
-//        return course;
-//    }
+
     /**
      * Getter for the StudentList
      * @return List of Students
@@ -61,6 +42,14 @@ public class Courses {
     public List<CLO>getCloList()
     {
         return CloList;
+    }
+    
+    /**
+     * Setter for CloList
+     */
+    public void SetCLOList(List<CLO>list)
+    {
+        CloList.addAll(list);
     }
     
     /**
